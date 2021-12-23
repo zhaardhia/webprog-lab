@@ -28,3 +28,16 @@ Route::get('/cart', function () {
 Route::get('/details', function () {
     return view('details');
 });
+
+Route::get('/add-item', function () {
+    return view('admin/add-item');
+});
+Route::get('/tr-history', function () {
+    return view('admin/transaction-history');
+});
+Route::get('/profile', function () {
+    return view('profile');
+});
+Route::get('/update-profile', function () {
+    return view('update-profile');
+});
