@@ -16,7 +16,6 @@
                     <a class="nav-link disabled">Profile</a>
                 </li>
             </ul>
-
         </div>
     </div>
 </nav>
