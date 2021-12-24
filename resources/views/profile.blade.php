@@ -1,15 +1,22 @@
 @section('pageTitle', 'JH Furniture')
 @extends('layouts.master')
 @section('content')
+
 <div class="container">
-    <h1 class="text-center fs-2 m-5">Mamat's Profile</h1>
+    <h1 class="text-center fs-2 m-5">{{ Auth::user()->name }}'s Profile</h1>
     <div class="d-flex justify-content-center">
         <div>
             @guest
             @else
-            <p>Fullname: Mjolnir</p>
-            <p>Email: Rp 999.999.000</p>
-            <p>Role: Chair</p>
+            <p>Fullname: {{ Auth::user()->name }}</p>
+            <p>Email: {{ Auth::user()->email }}</p>
+
+
+            @if(Str::endsWith(Auth::user()->email, '@jh.com'))
+            <p>Role: Admin</p>
+            @else
+            <p>Role: Member</p>
+            @endif
 
 
             @if(!Str::endsWith(Auth::user()->email, '@jh.com'))

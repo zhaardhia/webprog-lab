@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FurnitureController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,7 @@ Route::get('/details', function () {
 });
 
 Route::get('/add-item', function () {
-    return view('admin/add-item');
+    return view('/admin/add-item');
 });
 
 Route::get('/tr-history', function () {
@@ -44,6 +45,8 @@ Route::get('/profile', function () {
 Route::get('/update-profile', function () {
     return view('update-profile');
 });
+
+Route::post('/add-furniture', [FurnitureController::class, 'add_furniture']);
 
 Auth::routes();
 
