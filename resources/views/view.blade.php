@@ -19,12 +19,20 @@
 
                     <div class="d-flex gap-2">
 
-                        <!-- Admin -->
+                        @guest
+                        <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
+                        @else
+
+                        @if(Str::endsWith(Auth::user()->email, '@jh.com'))
                         <a href="#" class="btn btn-primary">Update</a>
                         <a href="#" class="btn btn-danger">Delete</a>
+                        @else
+                        <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
 
-                        <!-- User -->
-                        <!-- <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a> -->
+                        @endif
+
+                        @endguest
+
                     </div>
 
                 </div>

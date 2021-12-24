@@ -32,12 +32,19 @@ Route::get('/details', function () {
 Route::get('/add-item', function () {
     return view('admin/add-item');
 });
+
 Route::get('/tr-history', function () {
     return view('admin/transaction-history');
 });
+
 Route::get('/profile', function () {
     return view('profile');
 });
+
 Route::get('/update-profile', function () {
     return view('update-profile');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
