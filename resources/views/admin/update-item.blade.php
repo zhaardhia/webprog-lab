@@ -5,11 +5,10 @@
 
 <div class="container">
     <h1 class="text-center fs-2 mt-5">Update Furniture</h1>
-    @if(session('success'))
-    <div class="alert alert-success" id="alert" role="alert">
+
+    <div class="alert alert-success d-none" id="alert" role="alert">
         Success Update Furniture!
     </div>
-    @endif
 
     <div class="d-flex justify-content-center mt-5">
         <form onsubmit="updateFurniture()" class="w-25">
@@ -54,18 +53,13 @@
 <script>
     const updateFurniture = () => {
         event.preventDefault()
+        const alert = document.getElementById('alert')
         const name = document.getElementById('name').value
-        console.log("{{$furniture->id}}")
+        const price = document.getElementById('price').value;
+        const type = document.getElementById('type').value;
+        const color = document.getElementById('color').value;
+        const image = document.getElementById('image').value;
 
-        //     const pictureLink = document.getElementById('password').value;
-        //     const img = document.getElementById('img')
-        //     const form = document.getElementById('form-profile')
-        //     const button = document.getElementById('btn-submit')
-        //     button.innerHTML = `
-        //     <div class="spinner-border text-light" role="status">
-        //                 <span class="visually-hidden">Loading...</span>
-        //     </div>
-        //    `
         $.ajax({
             type: "POST",
             url: "/update-furniture",
@@ -73,9 +67,16 @@
                 "_token": "{{ csrf_token() }}",
                 "id": "{{ $furniture->id }}",
                 "name": name,
+                price,
+                type,
+                color,
+                image
             },
             success: function(result) {
-                console.log(result)
+                alert.classList.remove('d-none')
+                setTimeout(() => {
+                    alert.classList.add('d-none')
+                }, 5000);
             },
             error: (err) => {
                 console.log(err)

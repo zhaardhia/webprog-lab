@@ -19,23 +19,29 @@ class FurnitureController extends Controller
         $furniture = Furniture::findOrFail($request->id);
 
 
-        $furniture->name = $request->name;
-        // $furniture->type = $request->type;
-        // $furniture->color = $request->color;
-        // $furniture->price = $request->price;
-        // $furniture->image = $request->image;
+        if ($request->name) {
+            $furniture->name = $request->name;
+        }
+
+        if ($request->type) {
+            $furniture->type = $request->type;
+        }
+
+        if ($request->color) {
+            $furniture->color = $request->color;
+        }
+
+        if ($request->price) {
+            $furniture->price = $request->price;
+        }
+
+        if ($request->image) {
+            $furniture->image = $request->image;
+        }
 
         $furniture->save();
 
-        // $query = $furniture->save();
-
-        // if ($query) {
-        //     echo 'success';
-        // } else {
-        //     echo 'failed';
-        // }
-
-        return redirect()->back();
+        return redirect()->back()->withSuccess('works');
     }
 
     public function add_furniture(Request $request)
