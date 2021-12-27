@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FurnitureController;
+use App\Models\Furniture;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,8 @@ Route::get('/add-item', function () {
     return view('/admin/add-item');
 });
 
+Route::get('/update-item/{furniture_id}', [FurnitureController::class, 'getFurniture']);
+
 Route::get('/tr-history', function () {
     return view('admin/transaction-history');
 });
@@ -43,6 +46,10 @@ Route::get('/update-profile', function () {
 });
 
 Route::post('/add-furniture', [FurnitureController::class, 'add_furniture']);
+
+Route::post('/update-furniture', [FurnitureController::class, 'update_furniture']);
+
+Route::post('/delete-furniture', [FurnitureController::class, 'deleteFurniture']);
 
 Auth::routes();
 

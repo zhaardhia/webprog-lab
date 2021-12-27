@@ -10,9 +10,13 @@
     </div>
 
     <div class="row justify-content-center flex-wrap">
+        <div class="alert alert-success d-none" id="alert" role="alert">
+            Success Delete Furniture
+        </div>
+
         @if( count($furnitures) == 0)
         <div class="d-flex justify-content-center text-center">
-            <p class="text-black fs-1">😥 No City Found 😥</p>
+            <p class="text-black fs-1">😥 No Furniture Found 😥</p>
         </div>
         @else
         @foreach ($furnitures as $furniture)
@@ -35,8 +39,10 @@
                         @else
 
                         @if(Str::endsWith(Auth::user()->email, '@jh.com'))
-                        <a class="btn btn-primary" href="/add-item">Update</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a class="btn btn-primary" href="/update-item/{{$furniture->id}}">Update</a>
+                        <button id="{{$furniture->id}}" type="button" class="btn btn-danger" onclick="deleteModal(this.id)">
+                            Delete
+                        </button>
                         @else
                         <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
 
@@ -55,4 +61,31 @@
 
     </div>
 </div>
+
+
+<script>
+    function deleteModal(id) {
+        const alert = document.getElementById('alert')
+
+
+        $.ajax({
+            type: "POST",
+            url: "/delete-furniture",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "furniture_id": id,
+            },
+            success: function(result) {
+                alert.classList.remove('d-none')
+                setTimeout(() => {
+                    alert.classList.add('d-none')
+                }, 1000);
+                window.location.reload()
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    }
+</script>
 @endsection
