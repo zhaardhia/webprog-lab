@@ -16,6 +16,13 @@ class FurnitureController extends Controller
 
     public function update_furniture(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:furniture|max:15',
+            'type' => 'required',
+            'color' => 'required',
+            'price' => 'required|integer',
+            'image' => 'required',
+        ]);
         $furniture = Furniture::findOrFail($request->id);
 
 
@@ -34,6 +41,7 @@ class FurnitureController extends Controller
         if ($request->price) {
             $furniture->price = $request->price;
         }
+        
 
         if ($request->image) {
             $furniture->image = $request->image;
@@ -46,6 +54,13 @@ class FurnitureController extends Controller
 
     public function add_furniture(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:furniture|max:15',
+            'type' => 'required',
+            'color' => 'required',
+            'price' => 'required|integer',
+            'image' => 'required',
+        ]);
         $furniture = new Furniture();
 
         $furniture->name = $request->name;
@@ -86,5 +101,11 @@ class FurnitureController extends Controller
         $furniture->delete();
 
         return redirect()->to('/');
+    }
+    public function goToDetail($furniturename) 
+    {
+        $furniture = Furniture::where('name', '=', $furniturename)->get();
+        $furnitures = Furniture::all();
+        return view('details', ['furniture' => $furniture[0]])->with('furnitures', $furnitures);
     }
 }

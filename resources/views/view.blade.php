@@ -2,7 +2,7 @@
 @extends('layouts.master')
 @section('content')
 <div class="container">
-    <h1 class="text-center fs-2 mb-5">Welcome to JH Furniture</h1>
+    <h1 class="text-center fs-2 mb-5">View Furniture</h1>
 
     <div class="input-group mb-5">
         <input type="text" class="form-control" placeholder="Search Furniture" aria-label="Search Furniture" aria-describedby="button-addon2">
@@ -26,7 +26,7 @@
                 <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="...">
                 <div class="card-body">
 
-                    <a href="/details">
+                    <a href="/details/{{ $furniture->name }}" class="text-decoration-none">
                         <h5 class="card-title">{{$furniture->name}}</h5>
                     </a>
 

@@ -22,7 +22,7 @@
                 <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="...">
                 <div class="card-body">
 
-                    <a href="/details">
+                    <a href="/details/{{ $furniture->name }}" class="text-decoration-none">
                         <h5 class="card-title">{{$furniture->name}}</h5>
                     </a>
 

@@ -26,6 +26,8 @@ Route::get('/cart', function () {
 Route::get('/details', function () {
     return view('details');
 });
+Route::get('/details/{furniturename}', [FurnitureController::class, 'goToDetail']);
+
 
 Route::get('/add-item', function () {
     return view('/admin/add-item');

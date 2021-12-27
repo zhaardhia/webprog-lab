@@ -12,6 +12,17 @@ if (isset($_GET['id'])) {
 
 <div class="container">
     <h1 class="text-center fs-2 mt-5">{{$slide}} Furniture</h1>
+
+    @if (count($errors) > 0)
+        <div class = "alert alert-danger">
+            <ul>
+               @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+               @endforeach
+            </ul>
+         </div>
+    @endif
+
     @if(session('success'))
     <div class="alert alert-success" id="alert" role="alert">
         Success {{$slide}} Furniture!
@@ -32,7 +43,7 @@ if (isset($_GET['id'])) {
             <div class="mb-3">
                 <label for="" class="form-label">Type</label>
                 <select class="form-select" aria-label="select type" name="type">
-                    <option selected>Select type</option>
+                    <option selected value="">Select type</option>
                     <option value="chair">Chair</option>
                     <option value="bed">Bed</option>
                     <option value="couch">Couch</option>
@@ -41,7 +52,7 @@ if (isset($_GET['id'])) {
             <div class="mb-3">
                 <label for="" class="form-label">Color</label>
                 <select class="form-select" aria-label="select color" name="color">
-                    <option selected>Select the color</option>
+                    <option selected value="">Select the color</option>
                     <option value="merah">Red</option>
                     <option value="green">Green</option>
                     <option value="yellow">Yellow</option>
