@@ -14,13 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [FurnitureController::class, 'index']);
 
-Route::get('/view', function () {
-    return view('view');
-});
+Route::get('/view', [FurnitureController::class, 'view']);
 
 Route::get('/cart', function () {
     return view('cart');

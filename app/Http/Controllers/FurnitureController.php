@@ -27,8 +27,20 @@ class FurnitureController extends Controller
             echo 'failed';
         }
 
-        return view('/admin/add-item');
+        return redirect()->back()->withSuccess('IT WORKS!');
 
         // return redirect('/add-item');
+    }
+
+    public function index()
+    {
+        $furnitures = Furniture::all();
+        return view('index', ['furnitures' => $furnitures]);
+    }
+
+    public function view()
+    {
+        $furnitures = Furniture::all();
+        return view('view', ['furnitures' => $furnitures]);
     }
 }

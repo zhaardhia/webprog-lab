@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2021 at 10:42 AM
+-- Generation Time: Dec 27, 2021 at 10:08 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -59,9 +59,8 @@ CREATE TABLE `furniture` (
 --
 
 INSERT INTO `furniture` (`id`, `name`, `type`, `color`, `price`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'hjhjh', 'chair', 'merah', 90000, 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg', '2021-12-24 02:13:52', '2021-12-24 02:13:52'),
-(2, 'sfsfsf', 'chair', 'merah', 900000, '{{$result}}', '2021-12-24 02:30:59', '2021-12-24 02:30:59'),
-(3, 'dfsdfsdfsd', 'bed', 'green', 190000, 'dfgdgd', '2021-12-24 02:39:35', '2021-12-24 02:39:35');
+(1, 'daaa', 'chair', 'merah', 90000, 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg', '2021-12-27 01:48:19', '2021-12-27 01:48:19'),
+(2, 'test', 'chair', 'merah', 190000, 'https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg', '2021-12-27 01:54:19', '2021-12-27 01:54:19');
 
 -- --------------------------------------------------------
 
@@ -247,7 +246,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `furniture`
 --
 ALTER TABLE `furniture`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`

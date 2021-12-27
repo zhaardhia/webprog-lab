@@ -10,21 +10,32 @@
     </div>
 
     <div class="row justify-content-center flex-wrap">
+        @if( count($furnitures) == 0)
+        <div class="d-flex justify-content-center text-center">
+            <p class="text-black fs-1">😥 No City Found 😥</p>
+        </div>
+        @else
+        @foreach ($furnitures as $furniture)
+
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card h-100" style=" height: auto; object-fit: cover;">
-                <img src="https://wallpaperaccess.com/full/2076086.jpg" class="card-img-top mw-100" alt="...">
+                <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Mjolnir</h5>
-                    <p class="card-text">Rp 120.000</p>
+
+                    <a href="/details">
+                        <h5 class="card-title">{{$furniture->name}}</h5>
+                    </a>
+
+                    <p class="card-text">Rp {{$furniture->price}}</p>
 
                     <div class="d-flex gap-2">
-
                         @guest
                         <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
+
                         @else
 
                         @if(Str::endsWith(Auth::user()->email, '@jh.com'))
-                        <a href="#" class="btn btn-primary">Update</a>
+                        <a class="btn btn-primary" href="/add-item">Update</a>
                         <a href="#" class="btn btn-danger">Delete</a>
                         @else
                         <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
@@ -38,6 +49,9 @@
                 </div>
             </div>
         </div>
+
+        @endforeach
+        @endif
 
     </div>
 </div>
