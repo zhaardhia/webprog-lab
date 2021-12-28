@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="text-center fs-2 mt-5">Transaction History</h1>
         @foreach ($transactions as $transaction)
-        <div class="card w-100 mt-5" style="">
+        <div class="card w-100 mt-5 mb-5" style="">
             <div class="card-body">
               <h5 class="card-title">Transaction Id: {{ $transaction->id }}</h5>
               <p class="card-text">Transaction date: {{ $transaction->created_at }}</p>
