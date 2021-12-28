@@ -19,6 +19,10 @@
         @yield('content')
     </div>
     @include('layouts.footer')
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 </body>
 
 </html>

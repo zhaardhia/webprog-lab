@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FurnitureController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Furniture;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,8 @@ Route::post('/add-furniture', [FurnitureController::class, 'add_furniture']);
 Route::post('/update-furniture', [FurnitureController::class, 'update_furniture']);
 
 Route::post('/delete-furniture', [FurnitureController::class, 'deleteFurniture']);
+
+Route::post('/insert-transaction', [TransactionController::class, 'insertTransaction']);
 
 Auth::routes();
 

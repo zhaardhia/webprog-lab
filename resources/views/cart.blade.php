@@ -4,48 +4,7 @@
 <div class="container">
     <h1 class="text-center fs-2 mb-5">Your Cart</h1>
 
-
-    <div class="d-flex align-items-center gap-5 justify-content-center mb-2">
-
-        <img class="mw-100 h-auto" style="width: 6rem; object-fit: cover;" src="https://images.tokopedia.net/img/cache/500-square/product-1/2019/5/18/787530/787530_6597e33b-4c84-4e7a-aed0-7391a6e6bc11_960_960.jpg" alt="">
-
-        <div>
-            <ul class="list-group">
-                <li class="list-group-item">Name: An item</li>
-                <li class="list-group-item">Price: <span id="123-price">120000</span></li>
-                <li class="list-group-item">Qty: <span id="123-qty">1</span></li>
-
-            </ul>
-        </div>
-
-        <div class="d-flex gap-2">
-            <button class="btn btn-primary" id="123" type="button" onclick="addQty(this.id)"><i class="bi bi-plus-lg"></i></button>
-            <button class="btn btn-primary" id="123" type="button" onclick="minQty(this.id)"><i class="bi bi-dash-lg"></i></button>
-        </div>
-
-
-    </div>
-
-    <div class="d-flex align-items-center gap-5 justify-content-center">
-
-        <img class="mw-100 h-auto" style="width: 6rem; object-fit: cover;" src="https://images.tokopedia.net/img/cache/500-square/product-1/2019/5/18/787530/787530_6597e33b-4c84-4e7a-aed0-7391a6e6bc11_960_960.jpg" alt="">
-
-        <div>
-            <ul class="list-group">
-                <li class="list-group-item">Name: An item</li>
-                <li class="list-group-item">Price: <span id="125-price">1000</span></li>
-                <li class="list-group-item">Qty: <span id="125-qty">1</span></li>
-
-            </ul>
-        </div>
-
-        <div class="d-flex gap-2">
-            <button class="btn btn-primary" id="125" type="button" onclick="addQty(this.id)"><i class="bi bi-plus-lg"></i></button>
-            <button class="btn btn-primary" id="125" type="button" onclick="minQty(this.id)"><i class="bi bi-dash-lg"></i></button>
-        </div>
-
-
-    </div>
+    <div id="cart-data"></div>
 
     <h2 id="total" class="text-black text-center fs-2 mt-5"></h2>
 
@@ -54,36 +13,13 @@
         Proceed To Checkout
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Select Payment</option>
-                            <option value="1">Credit Card</option>
-                            <option value="2">Debit</option>
-                        </select>
-
-                        <button class="btn btn-primary mt-3">Pay</button>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
 
 </div>
 
 <script>
     const totalText = document.getElementById('total')
-    const products = []
+    const container = document.getElementById('cart-data')
+    const products = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem("cart")) : [];
 
 
     const formatRp = (value) => {
@@ -95,7 +31,40 @@
     };
 
     window.onload = () => {
-        totalText.innerHTML = "Total " + formatRp(products.reduce((a, b) => a + b.price, 0)) || 0
+
+        if (products.length < 1) {
+            container.innerHTML += `<p class="text-center"> No Data </p`
+        } else {
+            products.forEach(item => {
+                container.innerHTML += `
+            <div class="d-flex align-items-center gap-5 justify-content-center mb-2">
+
+                <img class="mw-100 h-auto" style="width: 6rem; object-fit: cover;" src=${item.image} alt="">
+
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">Name: ${item.name}</li>
+                        <li class="list-group-item">Price: <span id=${item.id}-price>${item.price}</span></li>
+                        <li class="list-group-item">Qty: <span id=${item.id}-qty>${item.qty}</span></li>
+
+                    </ul>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary" id=${item.id} type="button" onclick="addQty(${item.id})"><i class="bi bi-plus-lg"></i></button>
+                    <button class="btn btn-primary" id=${item.id} type="button" onclick="minQty(${item.id})"><i class="bi bi-dash-lg"></i></button>
+                </div>
+
+
+            </div>
+            
+            `
+            })
+        }
+
+        totalText.innerHTML = "Total " + formatRp(products.reduce((a, b) => Number(a) + Number(b.totalPrice), 0)) || 0
+
+        console.log(products)
     }
 
 
@@ -108,10 +77,11 @@
 
         idQty.innerHTML = Number(idQty.innerHTML) + 1
 
-        const findExistingProduct = products.find(item => item.id === id)
+        const findExistingProduct = products.find(item => Number(item.id) === id)
 
         if (findExistingProduct) {
-            findExistingProduct.price = Number(idQty.innerHTML) * Number(idPrice.innerHTML);
+            findExistingProduct.totalPrice = Number(idQty.innerHTML) * Number(idPrice.innerHTML);
+            findExistingProduct.qty = Number(idQty.innerHTML)
         } else {
             objToAdd.id = id;
             objToAdd.price = Number(idQty.innerHTML) * Number(idPrice.innerHTML);
@@ -120,7 +90,10 @@
 
         }
 
-        totalText.innerHTML = "Total " + formatRp(products.reduce((a, b) => a + b.price, 0))
+
+        totalText.innerHTML = "Total " + formatRp(products.reduce((a, b) => Number(a) + Number(b.totalPrice), 0))
+        localStorage.setItem('cart', JSON.stringify(products))
+
     }
 
     function minQty(id) {
@@ -132,10 +105,11 @@
 
         idQty.innerHTML = Number(idQty.innerHTML) - 1
 
-        const findExistingProduct = products.find(item => item.id === id)
+        const findExistingProduct = products.find(item => Number(item.id) === id)
 
         if (findExistingProduct) {
-            findExistingProduct.price = Number(idQty.innerHTML) * Number(idPrice.innerHTML);
+            findExistingProduct.totalPrice = Number(idQty.innerHTML) * Number(idPrice.innerHTML);
+            findExistingProduct.qty = Number(idQty.innerHTML)
         } else {
             objToAdd.id = id;
             objToAdd.price = Number(idQty.innerHTML) * Number(idPrice.innerHTML);
@@ -144,7 +118,20 @@
 
         }
 
-        totalText.innerHTML = "Total " + formatRp(products.reduce((a, b) => a + b.price, 0))
+        totalText.innerHTML = "Total " + formatRp(products.reduce((a, b) => Number(a) + Number(b.totalPrice), 0))
+
+
+        if (Number(idQty.innerHTML < 1)) {
+            products.splice(products.findIndex(function(i) {
+                return Number(i.id) === id;
+            }), 1);
+
+            window.location.reload()
+        }
+
+        localStorage.setItem('cart', JSON.stringify(products))
     }
 </script>
 @endsection
+
+@include('layouts.checkoutmodal')

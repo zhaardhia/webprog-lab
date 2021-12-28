@@ -19,19 +19,20 @@
 
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card h-100" style=" height: auto; object-fit: cover;">
-                <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="...">
+                <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="product photo" style="height: 12rem; width: 100%; object-fit: cover;">
                 <div class="card-body">
 
                     <a href="/details/{{ $furniture->name }}" class="text-decoration-none">
                         <h5 class="card-title">{{$furniture->name}}</h5>
                     </a>
 
-                    <p class="card-text">Rp {{$furniture->price}}</p>
+                    <p class="card-text" id="price">Rp {{$furniture->price}}</p>
 
                     <div class="d-flex gap-2">
                         @guest
-                        <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
-
+                        <button class="btn btn-light bg-dark text-white w-100" onclick="addToCart()" type="button">
+                            Add To Cart
+                        </button>
                         @else
 
                         @if(Str::endsWith(Auth::user()->email, '@jh.com'))
@@ -41,7 +42,13 @@
                         </button>
 
                         @else
-                        <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
+                        <button class="btn btn-light bg-dark text-white w-100" id="{{$furniture->id}}" onclick="addToCart('{{$furniture}}')" type="button">
+                            Add To Cart
+                        </button>
+
+                        <button class="btn btn-light bg-dark text-white w-100" id="{{$furniture->id}}" onclick="kcoak()" type="button">
+                            Console
+                        </button>
 
                         @endif
 
@@ -84,6 +91,48 @@
                 console.log(err)
             }
         })
+    }
+
+    function kcoak() {
+        console.log(JSON.parse(localStorage.getItem("cart")));
+    }
+
+    function addToCart(furnitureObj) {
+        const user = '{{Auth::user()}}'
+
+        const {
+            id,
+            image,
+            name,
+            price
+        } = JSON.parse(furnitureObj)
+
+        if (!user) {
+            window.history.pushState(null, null, '/login')
+            window.location.reload()
+        }
+
+        let existingCookie = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem("cart")) : [];
+
+        const objToAdd = {}
+
+        const existData = existingCookie.find(item => item.id === id);
+        if (existData) {
+            // existData.qty += 1;
+            // existData.price = 5;
+            return;
+        } else {
+            objToAdd.id = Number(id);
+            objToAdd.price = price;
+            objToAdd.totalPrice = price;
+            objToAdd.image = image;
+            objToAdd.qty = 1;
+            objToAdd.name = name;
+            existingCookie = [...existingCookie, objToAdd]
+        }
+
+        localStorage.setItem('cart', JSON.stringify(existingCookie))
+
     }
 </script>
 

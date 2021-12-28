@@ -32,6 +32,7 @@
                     <a class="nav-link" href="/profile">Profile</a>
                 </li>
 
+
                 @if(!Str::endsWith(Auth::user()->email, '@jh.com'))
                 <li class="nav-item">
                     <a class="nav-link" href="/cart"><i class="bi bi-cart2"></i></a>
