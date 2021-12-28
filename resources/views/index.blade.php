@@ -46,10 +46,6 @@
                             Add To Cart
                         </button>
 
-                        <button class="btn btn-light bg-dark text-white w-100" id="{{$furniture->id}}" onclick="kcoak()" type="button">
-                            Console
-                        </button>
-
                         @endif
 
                         @endguest
@@ -91,10 +87,6 @@
                 console.log(err)
             }
         })
-    }
-
-    function kcoak() {
-        console.log(JSON.parse(localStorage.getItem("cart")));
     }
 
     function addToCart(furnitureObj) {

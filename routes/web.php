@@ -36,9 +36,12 @@ Route::get('/add-item', function () {
 
 Route::get('/update-item/{furniture_id}', [FurnitureController::class, 'getFurniture']);
 
-Route::get('/tr-history', function () {
-    return view('admin/transaction-history');
-});
+// Route::get('/tr-history', function () {
+//     return view('admin/transaction-history');
+// });
+Route::get('/tr-history', [TransactionController::class, 'view']);
+Route::get('/tr-history/{id}', [TransactionController::class, 'trDetail']);
+
 
 Route::get('/profile', function () {
     return view('profile');

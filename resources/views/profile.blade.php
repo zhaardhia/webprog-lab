@@ -31,7 +31,8 @@
     </div>
     <div class="d-flex justify-content-center gap-3 m-5">
         <button class="btn btn-danger">Logout</button>
-        <button class="btn btn-warning">View Transaction History</button>
+        <a href="/tr-history" class="btn btn-warning">View Transaction History</a>
+        {{-- <button class="btn btn-warning">View Transaction History</button> --}}
         <a class="btn btn-info" href="/update-profile">
             Update Profile
         </a>

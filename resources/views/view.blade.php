@@ -23,7 +23,7 @@
 
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card h-100" style=" height: auto; object-fit: cover;">
-                <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="...">
+                <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="..." style="height: 12rem; width: 100%; object-fit: cover;">
                 <div class="card-body">
 
                     <a href="/details/{{ $furniture->name }}" class="text-decoration-none">

@@ -13,4 +13,7 @@ class Furniture extends Model
     {
         return $this->belongsToMany(Transaction::class);
     }
+    public function transactionDetail(){
+        return $this->hasMany(Transaction::class);
+    }
 }
