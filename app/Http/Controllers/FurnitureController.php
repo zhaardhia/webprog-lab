@@ -77,7 +77,7 @@ class FurnitureController extends Controller
 
     public function index()
     {
-        $furnitures = Furniture::all();
+        $furnitures = Furniture::skip(0)->take(4)->get();
         return view('index', ['furnitures' => $furnitures]);
     }
 
@@ -89,10 +89,7 @@ class FurnitureController extends Controller
 
     public function deleteFurniture(Request $request)
     {
-        // echo $request->furniture_id;
         $furniture = Furniture::findOrFail($request->furniture_id);
-        // $furniture->detail->delete();
-        // $furniture->images->delete();
         $furniture->delete();
 
         return redirect()->to('/');
@@ -102,5 +99,14 @@ class FurnitureController extends Controller
         $furniture = Furniture::where('name', '=', $furniturename)->get();
         $furnitures = Furniture::all();
         return view('details', ['furniture' => $furniture[0]])->with('furnitures', $furnitures);
+    }
+
+    public function searchFurniture(Request $request)
+    {
+        $name = $request->furniture;
+
+        $furnitures = Furniture::where('name', 'LIKE', '%' . $name . '%')->get();
+
+        return view('view', ['furnitures' => $furnitures]);
     }
 }

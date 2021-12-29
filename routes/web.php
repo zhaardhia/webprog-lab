@@ -62,6 +62,8 @@ Route::post('/insert-transaction', [TransactionController::class, 'insertTransac
 
 Route::post('/update-user/{id}', [UserController::class, 'update_user']);
 
+Route::get('/search', [FurnitureController::class, 'searchFurniture']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

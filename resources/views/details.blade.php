@@ -24,7 +24,7 @@
         {{-- <button type="button" class="btn btn-dark">Previous</button> --}}
         <a href="{{ url()->previous() }}" type="button" class="btn btn-dark">Previous</a>
         @guest
-        <button type="button" class="btn btn-info">Add To Cart</button>
+        <button type="button" class="btn btn-info" onclick="window.location = '/login'">Add To Cart</button>
 
         @else
 

@@ -20,8 +20,8 @@
 
 
             @if(!Str::endsWith(Auth::user()->email, '@jh.com'))
-            <p>Gender: {{ Auth::user()->gender }}</p>
-            <p>Address: {{ Auth::user()->address }}</p>
+            <p>Gender: {{ Auth::user()->gender ?? '-' }}</p>
+            <p>Address: {{ Auth::user()->address ?? '-' }}</p>
             @else
 
             @endif
@@ -30,13 +30,17 @@
         </div>
     </div>
     <div class="d-flex justify-content-center gap-3 m-5">
-        <button class="btn btn-danger">Logout</button>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+        <button class="btn btn-danger" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</button>
+
         <a href="/tr-history" class="btn btn-warning">View Transaction History</a>
-        {{-- <button class="btn btn-warning">View Transaction History</button> --}}
+
         <a class="btn btn-info" href="/update-profile">
             Update Profile
         </a>
-        <!-- <button class="btn btn-info">Update Profile</button> -->
     </div>
 </div>
 @endsection

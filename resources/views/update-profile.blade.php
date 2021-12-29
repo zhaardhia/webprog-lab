@@ -39,14 +39,14 @@
             <div class="mb-3">
                 <label for="" class="form-label">Gender</label>
                 <select class="form-select" aria-label="select gender" name="gender" id="gender">
-                    <option value="{{Auth::user()->gender}}" selected></option>
+                    <option selected>{{Auth::user()->gender}}</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Address</label>
-                <textarea class="form-control" placeholder="Input Your Address" id="address" style="height: 100px" name="address"></textarea>
+                <textarea value="a" class="form-control" placeholder="Input Your Address" id="address" style="height: 100px" name="address">{{Auth::user()->address ?? ''}}</textarea>
             </div>
             @endif
             @endguest
@@ -64,7 +64,7 @@
     //     const email = document.getElementById('email').value;
     //     const password = document.getElementById('password').value;
     //     const address = document.getElementById('address').value;
-        
+
     //     $.ajax({
     //         type: "POST",
     //         url: "/update-user",

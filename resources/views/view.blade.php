@@ -4,10 +4,13 @@
 <div class="container">
     <h1 class="text-center fs-2 mb-5">View Furniture</h1>
 
-    <div class="input-group mb-5">
-        <input type="text" class="form-control" placeholder="Search Furniture" aria-label="Search Furniture" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-    </div>
+    <form action="/search" method="GET">
+        <div class="input-group mb-5">
+            <input name="furniture" type="text" class="form-control" placeholder="Search Furniture" aria-label="Search Furniture" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+        </div>
+    </form>
+
 
     <div class="row justify-content-center flex-wrap">
         <div class="alert alert-success d-none" id="alert" role="alert">

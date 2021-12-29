@@ -10,12 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function insertTransaction(Request $request)
     {
         $request->validate([
             'cardNumber' => 'required|integer|digits:16',
             'method' => 'required',
-            
+
         ]);
         $userid = Auth::user()->id;
         $decoded = json_decode($request->product);
@@ -53,7 +59,7 @@ class TransactionController extends Controller
         if (str_ends_with($email, '@jh.com')) {
             # code...
             $transactions = Transaction::all();
-        }else{
+        } else {
             $transactions = Transaction::where('users_id', '=', Auth::user()->id)->get();;
         }
         return view('admin/transaction-history', [
@@ -61,7 +67,8 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function trDetail($id){
+    public function trDetail($id)
+    {
         $selectedDetail = TransactionDetail::where('transaction_id', '=', $id)
             ->get();
         $decoded = json_decode($selectedDetail);
