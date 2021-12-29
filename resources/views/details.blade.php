@@ -12,7 +12,7 @@
 
 
     <div class="d-flex justify-content-evenly mt-5">
-        <img class="" src="{{ asset('storage/product/'.$furniture->image) }}" alt="" style="width: 11rem">
+        <img class="mw-100" src="{{ asset('storage/product/'.$furniture->image) }}" alt="product pic" style="width: 12rem; height: auto; object-fit: cover;">
         <div>
             <p>Name: {{ $furniture->name }}</p>
             <p>Price: Rp {{ $furniture->price }}</p>
