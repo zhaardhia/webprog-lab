@@ -60,7 +60,7 @@ Route::post('/delete-furniture', [FurnitureController::class, 'deleteFurniture']
 
 Route::post('/insert-transaction', [TransactionController::class, 'insertTransaction']);
 
-Route::post('/update-user', [UserController::class, 'update_user']);
+Route::post('/update-user/{id}', [UserController::class, 'update_user']);
 
 Auth::routes();
 

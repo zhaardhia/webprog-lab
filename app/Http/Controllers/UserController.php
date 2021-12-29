@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,35 @@ class UserController extends Controller
     {
         //
     }
-    public function update_user(Request $request){
-        $user = User::findOrFail($request->id);
-        echo $user;
+    public function update_user(Request $request, $id){
+        //echo Auth::user()->email;
+        
+        
+        if(!str_ends_with(Auth::user()->email, '@jh.com')){
+            $request->validate([
+                'name' => 'required|max:15',
+                'email' => 'required|email',
+                'password' => 'required|min:5|max:20',
+                'gender' => 'required',
+                'address' => 'required|min:5|max:95',
+            ]);
+            $user->gender = $request->gender;
+            $user->address = $request->address;
+        }else{
+            $request->validate([
+                'name' => 'required|max:15',
+                'email' => 'required|email',
+                'password' => 'required|min:5|max:20'
+            ]);
+        }
+        
+        $user = User::findOrFail($id);
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        
+        $user->save();
         
         
         return redirect()->back()->withSuccess('IT WORKS!');
