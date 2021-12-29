@@ -6,12 +6,25 @@
 <div class="container">
     <h1 class="text-center fs-2 mt-5">Update Furniture</h1>
 
-    <div class="alert alert-success d-none" id="alert" role="alert">
+    @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="alert alert-success" id="alert" role="alert">
         Success Update Furniture!
     </div>
+    @endif
 
     <div class="d-flex justify-content-center mt-5">
-        <form onsubmit="updateFurniture()" class="w-25">
+
+        <form action="/update-furniture/{{$furniture->id}}" method="POST" class="w-25" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="" class="form-label">Name</label>
@@ -41,8 +54,8 @@
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Image</label>
-                <input type="text" name="image" value="{{$furniture->image}}" id="image">
-                <!-- <input class="form-control" type="file" id="formFile"> -->
+                <!-- <input type="text" name="image" value="{{$furniture->image}}" id="image"> -->
+                <input class="form-control" type="file" id="image" name="file">
             </div>
             <button type="submit" class="btn btn-primary">Update Furniture</button>
         </form>
@@ -51,37 +64,17 @@
 </div>
 
 <script>
-    const updateFurniture = () => {
-        event.preventDefault()
-        const alert = document.getElementById('alert')
-        const name = document.getElementById('name').value
-        const price = document.getElementById('price').value;
-        const type = document.getElementById('type').value;
-        const color = document.getElementById('color').value;
-        const image = document.getElementById('image').value;
+    const idAlert = document.getElementById('alert')
 
-        $.ajax({
-            type: "POST",
-            url: "/update-furniture",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                "id": "{{ $furniture->id }}",
-                "name": name,
-                price,
-                type,
-                color,
-                image
-            },
-            success: function(result) {
-                alert.classList.remove('d-none')
-                setTimeout(() => {
-                    alert.classList.add('d-none')
-                }, 5000);
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        })
+    const wait = async () => new Promise(resolve => setTimeout(resolve, 4000));
+
+    const run = async () => {
+        if (idAlert) {
+            await wait()
+            idAlert.classList.add('d-none')
+        }
     }
+
+    run()
 </script>
 @endsection

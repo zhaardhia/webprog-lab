@@ -14,16 +14,20 @@
             Success Delete Furniture
         </div>
 
+        <div class="alert alert-success d-none" id="cart-alert" role="alert">
+            Success Add To Cart
+        </div>
+
+
         @if( count($furnitures) == 0)
         <div class="d-flex justify-content-center text-center">
             <p class="text-black fs-1">😥 No Furniture Found 😥</p>
         </div>
         @else
         @foreach ($furnitures as $furniture)
-
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card h-100" style=" height: auto; object-fit: cover;">
-                <img src="{{$furniture->image}}" class="card-img-top mw-100" alt="..." style="height: 12rem; width: 100%; object-fit: cover;">
+                <img src="{{ asset('storage/product/'.$furniture->image) }}" class="card-img-top mw-100" alt="..." style="height: 12rem; width: 100%; object-fit: cover;">
                 <div class="card-body">
 
                     <a href="/details/{{ $furniture->name }}" class="text-decoration-none">
@@ -34,7 +38,9 @@
 
                     <div class="d-flex gap-2">
                         @guest
-                        <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
+                        <button class="btn btn-light bg-dark text-white w-100" id="{{$furniture->id}}" onclick="addToCart('{{$furniture}}')" type="button">
+                            Add To Cart
+                        </button>
 
                         @else
 
@@ -44,7 +50,9 @@
                             Delete
                         </button>
                         @else
-                        <a href="" class="btn btn-light bg-dark text-white w-100">Add to Cart</a>
+                        <button class="btn btn-light bg-dark text-white w-100" id="{{$furniture->id}}" onclick="addToCart('{{$furniture}}')" type="button">
+                            Add To Cart
+                        </button>
 
                         @endif
 
@@ -86,6 +94,50 @@
                 console.log(err)
             }
         })
+    }
+
+    function addToCart(furnitureObj) {
+        const user = '{{Auth::user()}}'
+        const alertCart = document.getElementById('cart-alert')
+        const {
+            id,
+            image,
+            name,
+            price
+        } = JSON.parse(furnitureObj)
+
+        if (!user) {
+            window.history.pushState(null, null, '/login')
+            window.location.reload()
+            return;
+        }
+
+        let existingCookie = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem("cart")) : [];
+
+        const objToAdd = {}
+
+        const existData = existingCookie.find(item => item.id === id);
+        if (existData) {
+            // existData.qty += 1;
+            // existData.price = 5;
+            console.log('exist')
+        } else {
+            objToAdd.id = Number(id);
+            objToAdd.price = price;
+            objToAdd.totalPrice = price;
+            objToAdd.image = image;
+            objToAdd.qty = 1;
+            objToAdd.name = name;
+            existingCookie = [...existingCookie, objToAdd]
+        }
+
+        alertCart.classList.remove('d-none')
+        setTimeout(() => {
+            alertCart.classList.add('d-none')
+        }, 1000);
+
+        localStorage.setItem('cart', JSON.stringify(existingCookie))
+
     }
 </script>
 @endsection

@@ -7,13 +7,13 @@
                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
                <div class="modal-body">
-                
-                <div id="error-div" class = "alert alert-danger d-none">
-                    <ul id="ul-error" class="">
-                       
-                    </ul>
-                </div>
-                
+
+                   <div id="error-div" class="alert alert-danger d-none">
+                       <ul id="ul-error" class="">
+
+                       </ul>
+                   </div>
+
                    <div class="alert alert-success d-none" role="alert" id="alert">
                        Transaction Success!
                    </div>
@@ -45,8 +45,8 @@
        function payTransaction() {
            event.preventDefault()
 
-            const ulerror = document.querySelector('#ul-error')
-            const errordiv = document.querySelector('#error-div')
+           const ulerror = document.querySelector('#ul-error')
+           const errordiv = document.querySelector('#error-div')
            const alertComponent = document.getElementById('alert')
            const infoComponent = document.getElementById('info')
 
@@ -84,16 +84,16 @@
                        alertComponent.classList.add('d-none')
                        window.location.reload();
 
-                   }, 3000);
+                   }, 1500);
                },
                error: (err) => {
                    errordiv.classList.remove('d-none')
                    const errorMessage = Object.values(err.responseJSON.errors).flat()
-                //    console.log(errorMessage)
-                    
+                   //    console.log(errorMessage)
+
                    errorMessage.forEach(element => {
-                       
-                        ulerror.innerHTML += `<li>${element}</li>`;
+
+                       ulerror.innerHTML += `<li>${element}</li>`;
                    });
                }
            })

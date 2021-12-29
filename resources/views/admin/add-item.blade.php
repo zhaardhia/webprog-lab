@@ -2,35 +2,28 @@
 @extends('layouts.master')
 @section('content')
 
-<?php
-$slide = 'Add';
-if (isset($_GET['id'])) {
-    $slide = 'Update';
-}
-?>
-
 
 <div class="container">
-    <h1 class="text-center fs-2 mt-5">{{$slide}} Furniture</h1>
+    <h1 class="text-center fs-2 mt-5">Add Furniture</h1>
 
     @if (count($errors) > 0)
-        <div class = "alert alert-danger">
-            <ul>
-               @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-               @endforeach
-            </ul>
-         </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     @if(session('success'))
     <div class="alert alert-success" id="alert" role="alert">
-        Success {{$slide}} Furniture!
+        Success Add Furniture!
     </div>
     @endif
 
     <div class="d-flex justify-content-center mt-5">
-        <form action="/add-furniture" method="POST" class="w-25">
+        <form action="/add-furniture" method="POST" class="w-25" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="" class="form-label">Name</label>
@@ -60,10 +53,10 @@ if (isset($_GET['id'])) {
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Image</label>
-                <input type="text" name="image">
-                <!-- <input class="form-control" type="file" id="formFile"> -->
+                <!-- <input type="text" name="image"> -->
+                <input class="form-control" type="file" id="formFile" name="file" required>
             </div>
-            <button type="submit" class="btn btn-primary">{{$slide}} Furniture</button>
+            <button type="submit" class="btn btn-primary">Add Furniture</button>
         </form>
     </div>
 

@@ -39,7 +39,7 @@
                 container.innerHTML += `
             <div class="d-flex align-items-center gap-5 justify-content-center mb-2">
 
-                <img class="mw-100 h-auto" style="width: 6rem; object-fit: cover;" src=${item.image} alt="">
+                <img class="mw-100 h-auto" style="width: 6rem; object-fit: cover;" src={{ asset('storage/product/${item.image}') }} alt="">
 
                 <div>
                     <ul class="list-group">

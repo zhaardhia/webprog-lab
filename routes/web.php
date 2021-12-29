@@ -53,7 +53,7 @@ Route::get('/update-profile', function () {
 
 Route::post('/add-furniture', [FurnitureController::class, 'add_furniture']);
 
-Route::post('/update-furniture', [FurnitureController::class, 'update_furniture']);
+Route::post('/update-furniture/{id}', [FurnitureController::class, 'update_furniture']);
 
 Route::post('/delete-furniture', [FurnitureController::class, 'deleteFurniture']);
 

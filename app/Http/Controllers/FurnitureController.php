@@ -14,37 +14,29 @@ class FurnitureController extends Controller
         return view('/admin/update-item', ['furniture' => $furniture[0]]);
     }
 
-    public function update_furniture(Request $request)
+    public function update_furniture(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|unique:furniture|max:15',
+            'name' => 'required|max:15',
             'type' => 'required',
             'color' => 'required',
-            'price' => 'required|integer',
-            'image' => 'required',
+            'price' => 'required|integer|between:5000,10000000',
         ]);
-        $furniture = Furniture::findOrFail($request->id);
+
+        $furniture = Furniture::findOrFail($id);
 
 
-        if ($request->name) {
-            $furniture->name = $request->name;
-        }
+        $furniture->name = $request->name;
+        $furniture->type = $request->type;
+        $furniture->color = $request->color;
+        $furniture->price = $request->price;
 
-        if ($request->type) {
-            $furniture->type = $request->type;
-        }
-
-        if ($request->color) {
-            $furniture->color = $request->color;
-        }
-
-        if ($request->price) {
-            $furniture->price = $request->price;
-        }
-        
-
-        if ($request->image) {
-            $furniture->image = $request->image;
+        if ($request->has('file')) {
+            $request->validate([
+                'file' => 'mimes:jpeg,png',
+            ]);
+            $request->file->store('product', 'public');
+            $furniture->image = $request->file->hashName();
         }
 
         $furniture->save();
@@ -58,16 +50,19 @@ class FurnitureController extends Controller
             'name' => 'required|unique:furniture|max:15',
             'type' => 'required',
             'color' => 'required',
-            'price' => 'required|integer',
-            'image' => 'required',
+            'price' => 'required|integer|between:5000,10000000',
+            'file' => 'required|mimes:jpeg,png',
         ]);
+
+        $request->file->store('product', 'public');
+
         $furniture = new Furniture();
 
         $furniture->name = $request->name;
         $furniture->type = $request->type;
         $furniture->color = $request->color;
         $furniture->price = $request->price;
-        $furniture->image = $request->image;
+        $furniture->image = $request->file->hashName();
 
         $query = $furniture->save();
 
@@ -102,7 +97,7 @@ class FurnitureController extends Controller
 
         return redirect()->to('/');
     }
-    public function goToDetail($furniturename) 
+    public function goToDetail($furniturename)
     {
         $furniture = Furniture::where('name', '=', $furniturename)->get();
         $furnitures = Furniture::all();
