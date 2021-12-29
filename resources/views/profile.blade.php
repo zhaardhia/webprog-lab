@@ -20,8 +20,8 @@
 
 
             @if(!Str::endsWith(Auth::user()->email, '@jh.com'))
-            <p>Gender: Male</p>
-            <p>Address: hjhjhj</p>
+            <p>Gender: {{ Auth::user()->gender }}</p>
+            <p>Address: {{ Auth::user()->address }}</p>
             @else
 
             @endif
