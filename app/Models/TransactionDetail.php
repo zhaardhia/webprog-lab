@@ -23,7 +23,8 @@ class TransactionDetail extends Model
     {
         return $this->belongsTo(Transaction::class);
     }
-    public function furniture(){
-        return $this->belongsTo(Furniture::class, 'furniture_id');
+    public function furniture()
+    {
+        return $this->belongsTo(Furniture::class, 'furniture_id')->withTrashed();
     }
 }

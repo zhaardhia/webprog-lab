@@ -7,7 +7,7 @@
     <form action="/search" method="GET">
         <div class="input-group mb-5">
             <input name="furniture" type="text" class="form-control" placeholder="Search Furniture" aria-label="Search Furniture" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            <button class="btn btn-outline-secondary" id="button-addon2">Search</button>
         </div>
     </form>
 
